@@ -5,7 +5,7 @@ import subprocess, json
 from time import sleep
 
 def getTemp(script):
-    proc = subprocess.Popen("/home/pi/temperature" + script, stdout=subprocess.PIPE, shell=True)
+    proc = subprocess.Popen("/home/pi/temperature/" + script, stdout=subprocess.PIPE, shell=True)
     (temp, error) = proc.communicate()
     return temp
 
@@ -18,5 +18,6 @@ def sendTemp():
     publish.single("paradise/api/temperature", json.dumps(outsideTemp), port=8883, tls={'ca_certs':"/home/pi/ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
     sleep(2.5)
 
+#print (getTemp('inside.sh'))
 while True:
     sendTemp()
