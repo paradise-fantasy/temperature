@@ -11,10 +11,11 @@ def getTemp(script):
 
 def sendTemp():
     inside = float(getTemp('inside.sh'))/1000
-    insideTemp = {'sensor': '1-wire', 'temperature': inside}
-    publish.single("paradise/api/temperature", json.dumps(insideTemp), port=8883, tls={'ca_certs':"/home/pi/ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
+    print(inside)
+    insideTemp = {'sensor': 'Inside', 'temperature': inside}
     outside = float(getTemp('outside.sh'))/1000
-    outsideTemp = {'sensor': 'outside', 'temperature': outside}
+    outsideTemp = {'sensor': 'Outside', 'temperature': outside}
+    publish.single("paradise/api/temperature", json.dumps(insideTemp), port=8883, tls={'ca_certs':"/home/pi/ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
     publish.single("paradise/api/temperature", json.dumps(outsideTemp), port=8883, tls={'ca_certs':"/home/pi/ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
     sleep(2.5)
 
