@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import urllib2
 import paho.mqtt.publish as publish
 import subprocess, json
 from time import sleep
@@ -29,7 +30,7 @@ def sendTemp():
     publish.single("paradise/api/temperature", json.dumps(outsideTemp), port=8883, tls={'ca_certs':"/home/pi/ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
     if (inside > 24):
         if (avoid_spam<=0):
-            avoid_spam = 5
+            avoid_spam = 15
             someone = getSomeonePresent()
             if someone:
                 response =  "It is getting hot in here, " + someone + " please take off all your clothes!"
